@@ -9,6 +9,9 @@ import Error from "../Error/Error";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AuthLayout from "../Layout/Authlayout";
+import ArtWorkDetails from "../ArtCard/ArtWorkDetrails";
+import PrivateRoute from "../Pages/PrivateRoutes";
+
 
 const router = createBrowserRouter([
   {
@@ -25,15 +28,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/addArt",
-        element: <AddArtwork></AddArtwork>,
+        element: <PrivateRoute>
+          <AddArtwork></AddArtwork>
+        </PrivateRoute>,
       },
       {
         path: "/myGallery",
-        element: <MyGallery></MyGallery>,
+        element:<PrivateRoute>
+           <MyGallery></MyGallery>
+        </PrivateRoute>,
       },
       {
         path: "/myFavorites",
-        element: <MyFavorites></MyFavorites>,
+        element: <PrivateRoute>
+          <MyFavorites></MyFavorites>
+        </PrivateRoute>,
+      },
+       { 
+        path: "/art/:id",  
+        element: <PrivateRoute>
+          <ArtWorkDetails></ArtWorkDetails>
+        </PrivateRoute>
       },
     ],
   },

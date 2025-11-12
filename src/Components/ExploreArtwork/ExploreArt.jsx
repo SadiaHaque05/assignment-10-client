@@ -5,30 +5,25 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const ExploreArt = () => {
   const [arts, setArts] = useState([]);
-  const [filteredArts, setFilteredArts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("All"); 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/arts/all")
       .then((res) => res.json())
-      .then((data) => {
-        setArts(data);
-        setFilteredArts(data);
-      })
+      .then((data) => setArts(data))
       .catch((err) => console.error("Error fetching arts:", err));
   }, []);
 
-  const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearchTerm(value);
-    const filtered = arts.filter(
-      (art) =>
-        art.title?.toLowerCase().includes(value) ||
-        art.artist?.toLowerCase().includes(value)
-    );
-    setFilteredArts(filtered);
-  };
+  const handleSearch = (e) => setSearchTerm(e.target.value.toLowerCase());
+
+  const filteredArts = arts.filter(
+    (art) =>
+      (category === "All" || art.category === category) &&
+      (art.title.toLowerCase().includes(searchTerm) ||
+        art.artist.toLowerCase().includes(searchTerm))
+  );
 
   return (
     <div className="max-w-7xl mx-auto py-10 px-5">
@@ -38,14 +33,23 @@ const ExploreArt = () => {
         </h1>
       </Zoom>
 
-      {/* Search Bar */}
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-8 gap-4">
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="select select-bordered"
+        >
+          <option>All</option>
+          <option>Painting</option>
+          <option>Sketch</option>
+          <option>Digital</option>
+        </select>
         <input
           type="text"
           placeholder="Search by title or artist..."
           value={searchTerm}
           onChange={handleSearch}
-          className="input input-bordered w-full max-w-md"
+          className="input input-bordered"
         />
       </div>
 
@@ -71,15 +75,11 @@ const ExploreArt = () => {
                 >
                   {art.title}
                 </h2>
-                <ReactTooltip
-                  id={`tooltip-${art._id}`}
-                  place="top"
-                  effect="solid"
-                />
+                <ReactTooltip id={`tooltip-${art._id}`} place="top" effect="solid" />
                 <p>Artist: {art.artist}</p>
                 <p>Category: {art.category}</p>
                 <p data-tip="Total Likes ❤️" data-for={`like-${art._id}`}>
-                  ❤️ Likes: {art.likes || 0}
+                  ❤️ Likes: {art.likedBy?.length || 0}
                 </p>
                 <ReactTooltip id={`like-${art._id}`} place="bottom" effect="solid" />
 
@@ -97,10 +97,9 @@ const ExploreArt = () => {
         </div>
       </Fade>
 
-      {/*  No Results */}
       {filteredArts.length === 0 && (
         <p className="text-center text-gray-400 mt-10">
-          No artworks found for “{searchTerm}”.
+          No artworks found for “{searchTerm}” in category “{category}”.
         </p>
       )}
     </div>

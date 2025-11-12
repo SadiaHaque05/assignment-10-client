@@ -28,10 +28,27 @@ const ArtWorkDetails = () => {
       .catch((err) => console.error(err));
   }, [id, user]);
 
+  
   const handleLike = () => {
     if (!user) return alert("Please login to like the artwork");
-    fetch(`http://localhost:3000/arts/${id}/like`, { method: "POST" })
-      .then(() => setArt((prev) => ({ ...prev, likes: prev.likes + 1 })))
+
+    const endpoint = art.likedBy?.includes(user.email)
+      ? `/arts/${id}/unlike`   
+      : `/arts/${id}/like`;    
+
+    fetch(`http://localhost:3000${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: user.email }),
+    })
+      .then(() => {
+        setArt((prev) => {
+          const likedSet = new Set(prev.likedBy || []);
+          if (likedSet.has(user.email)) likedSet.delete(user.email);
+          else likedSet.add(user.email);
+          return { ...prev, likedBy: Array.from(likedSet) };
+        });
+      })
       .catch((err) => console.error(err));
   };
 
@@ -48,7 +65,7 @@ const ArtWorkDetails = () => {
       body: JSON.stringify({ email: user.email }),
     })
       .then(() => {
-        setIsFavorite(!isFavorite);
+        setIsFavorite(!isFavorite); 
       })
       .catch((err) => console.error(err));
   };
@@ -74,7 +91,7 @@ const ArtWorkDetails = () => {
       </p>
       <div className="flex gap-4">
         <button onClick={handleLike} className="btn btn-primary">
-          Like ({art.likes || 0})
+          {art.likedBy?.includes(user?.email) ? "Unlike" : "Like"} ({art.likedBy?.length || 0}) 
         </button>
         <button
           onClick={toggleFavorite}
@@ -88,4 +105,3 @@ const ArtWorkDetails = () => {
 };
 
 export default ArtWorkDetails;
-

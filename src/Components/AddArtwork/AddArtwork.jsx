@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/Firebase.config";
-import { Tooltip as ReactTooltip } from "react-tooltip"; 
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 
 const AddArtwork = () => {
@@ -44,8 +44,6 @@ const AddArtwork = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // update fields manually
     if (name === "image") setArtwork({ ...artwork, image: value });
     else if (name === "title") setArtwork({ ...artwork, title: value });
     else if (name === "category") setArtwork({ ...artwork, category: value });
@@ -176,13 +174,13 @@ const AddArtwork = () => {
           type="text"
           value={artwork.artistName}
           readOnly
-          className="input input-bordered w-full bg-base-300 dark:bg-base-200"
+          className="input input-bordered w-full bg-secondary dark:primary"
         />
         <input
           type="text"
           value={artwork.artistEmail}
           readOnly
-          className="input input-bordered w-full bg-base-300 dark:bg-base-200"
+          className="input input-bordered w-full bg-primary dark:bg-secondary"
         />
         <button type="submit" className="btn btn-primary w-full mt-4">
           Add Artwork

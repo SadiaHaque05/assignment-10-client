@@ -93,7 +93,7 @@ const AddArtwork = () => {
   if (!user) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-base-200 dark:bg-base-300 rounded-xl shadow-lg mt-10">
+    <div className="max-w-3xl mx-auto mb-8 p-6 bg-base-200 dark:bg-base-300 rounded-xl shadow-lg mt-10">
       <h2 className="text-2xl font-bold text-primary mb-6 text-center dark:text-secondary">Add Artwork</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

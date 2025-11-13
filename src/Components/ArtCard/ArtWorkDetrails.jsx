@@ -17,7 +17,7 @@ const ArtWorkDetails = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/arts/${id}`)
+    fetch(`https://assignment-10-serverside-azure.vercel.app/arts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setArt(data);
@@ -28,13 +28,12 @@ const ArtWorkDetails = () => {
       .catch((err) => console.error(err));
   }, [id, user]);
 
-  
   const handleLike = () => {
     if (!user) return alert("Please login to like the artwork");
 
     const endpoint = art.likedBy?.includes(user.email)
-      ? `/arts/${id}/unlike`   
-      : `/arts/${id}/like`;    
+      ? `/arts/${id}/unlike`
+      : `/arts/${id}/like`;
 
     fetch(`http://localhost:3000${endpoint}`, {
       method: "POST",
@@ -65,7 +64,7 @@ const ArtWorkDetails = () => {
       body: JSON.stringify({ email: user.email }),
     })
       .then(() => {
-        setIsFavorite(!isFavorite); 
+        setIsFavorite(!isFavorite);
       })
       .catch((err) => console.error(err));
   };
@@ -80,7 +79,9 @@ const ArtWorkDetails = () => {
         className="w-full max-h-[1200px] object-cover rounded-lg mb-5"
       />
       <h1 className="text-4xl font-bold mb-2">{art.title}</h1>
-      <p className="text-gray-400 mb-2">{art.category} | {art.tools}</p>
+      <p className="text-gray-400 mb-2">
+        {art.category} | {art.tools}
+      </p>
       <p className="mb-4">{art.description}</p>
       <p className="text-gray-500 mb-4">
         Dimensions: {art.dimensions} | Price: ${art.price}
@@ -91,7 +92,8 @@ const ArtWorkDetails = () => {
       </p>
       <div className="flex gap-4">
         <button onClick={handleLike} className="btn btn-primary">
-          {art.likedBy?.includes(user?.email) ? "Unlike" : "Like"} ({art.likedBy?.length || 0}) 
+          {art.likedBy?.includes(user?.email) ? "Unlike" : "Like"} (
+          {art.likedBy?.length || 0})
         </button>
         <button
           onClick={toggleFavorite}

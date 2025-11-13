@@ -4,7 +4,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/Firebase.config";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-
 const AddArtwork = () => {
   const [artwork, setArtwork] = useState({
     image: "",
@@ -48,26 +47,38 @@ const AddArtwork = () => {
     else if (name === "title") setArtwork({ ...artwork, title: value });
     else if (name === "category") setArtwork({ ...artwork, category: value });
     else if (name === "tools") setArtwork({ ...artwork, tools: value });
-    else if (name === "description") setArtwork({ ...artwork, description: value });
-    else if (name === "dimensions") setArtwork({ ...artwork, dimensions: value });
+    else if (name === "description")
+      setArtwork({ ...artwork, description: value });
+    else if (name === "dimensions")
+      setArtwork({ ...artwork, dimensions: value });
     else if (name === "price") setArtwork({ ...artwork, price: value });
-    else if (name === "visibility") setArtwork({ ...artwork, visibility: value });
+    else if (name === "visibility")
+      setArtwork({ ...artwork, visibility: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!artwork.image || !artwork.title || !artwork.category || !artwork.tools || !artwork.description) {
+    if (
+      !artwork.image ||
+      !artwork.title ||
+      !artwork.category ||
+      !artwork.tools ||
+      !artwork.description
+    ) {
       toast.error("Please fill all required fields!");
       return;
     }
 
     try {
-      const res = await fetch("http://localhost:3000/arts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(artwork),
-      });
+      const res = await fetch(
+        "https://assignment-10-serverside-azure.vercel.app/arts",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(artwork),
+        }
+      );
       const data = await res.json();
       if (data.insertedId) {
         toast.success("Artwork added successfully!");
@@ -94,7 +105,9 @@ const AddArtwork = () => {
 
   return (
     <div className="max-w-3xl mx-auto mb-8 p-6 bg-base-200 dark:bg-base-300 rounded-xl shadow-lg mt-10">
-      <h2 className="text-2xl font-bold text-primary mb-6 text-center dark:text-secondary">Add Artwork</h2>
+      <h2 className="text-2xl font-bold text-primary mb-6 text-center dark:text-secondary">
+        Add Artwork
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"

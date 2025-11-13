@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/arts")
+    fetch("https://assignment-10-serverside-azure.vercel.app/arts")
       .then((res) => res.json())
       .then((data) => setArts(data))
       .catch((err) => console.error(err));

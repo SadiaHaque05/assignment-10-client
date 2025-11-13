@@ -19,7 +19,9 @@ const MyFavorites = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/users/${user.email}/favorites`)
+      fetch(
+        `https://assignment-10-serverside-azure.vercel.app/users/${user.email}/favorites`
+      )
         .then((res) => res.json())
         .then((data) => setFavorites(data))
         .catch((err) => console.error(err));
@@ -27,11 +29,14 @@ const MyFavorites = () => {
   }, [user]);
 
   const handleRemoveFavorite = (artId) => {
-    fetch(`http://localhost:3000/arts/${artId}/unfavorite`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: user.email }),
-    })
+    fetch(
+      `https://assignment-10-serverside-azure.vercel.app/arts/${artId}/unfavorite`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email }),
+      }
+    )
       .then(() => {
         setFavorites((prev) => prev.filter((art) => art._id !== artId));
       })
@@ -42,9 +47,13 @@ const MyFavorites = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-10 px-5">
-      <h1 className="text-3xl font-bold mb-6 text-center">My Favorite Artworks</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        My Favorite Artworks
+      </h1>
       {favorites.length === 0 ? (
-        <p className="text-center text-gray-500">You have no favorite artworks yet.</p>
+        <p className="text-center text-gray-500">
+          You have no favorite artworks yet.
+        </p>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {favorites.map((art) => (

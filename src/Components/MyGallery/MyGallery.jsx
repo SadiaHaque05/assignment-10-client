@@ -17,7 +17,7 @@ const MyGallery = () => {
     visibility: "Public",
   });
 
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -29,17 +29,21 @@ const MyGallery = () => {
   useEffect(() => {
     if (user) {
       setLoading(true);
-      fetch(`http://localhost:3000/arts?userEmail=${user.email}`)
+      fetch(
+        `https://assignment-10-serverside-azure.vercel.app/arts?userEmail=${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => setArts(data))
         .catch(() => toast.error("Failed to load artworks"))
-        .finally(() => setLoading(false)); 
+        .finally(() => setLoading(false));
     }
   }, [user]);
 
   const handleDelete = (id) => {
     if (!window.confirm("Delete this artwork?")) return;
-    fetch(`http://localhost:3000/arts/${id}`, { method: "DELETE" }).then(() => {
+    fetch(`https://assignment-10-serverside-azure.vercel.app/arts/${id}`, {
+      method: "DELETE",
+    }).then(() => {
       setArts(arts.filter((a) => a._id !== id));
       toast.success("Deleted successfully!");
     });
@@ -63,15 +67,16 @@ const MyGallery = () => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/arts/${editingArt._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    }).then(() => {
+    fetch(
+      `https://assignment-10-serverside-azure.vercel.app/arts/${editingArt._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      }
+    ).then(() => {
       setArts(
-        arts.map((a) =>
-          a._id === editingArt._id ? { ...a, ...formData } : a
-        )
+        arts.map((a) => (a._id === editingArt._id ? { ...a, ...formData } : a))
       );
       setModalOpen(false);
       toast.success("Updated successfully!");

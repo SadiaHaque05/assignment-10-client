@@ -12,7 +12,7 @@ const ExploreArt = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/arts/all")
+    fetch("https://assignment-10-serverside-azure.vercel.app/arts/all")
       .then((res) => res.json())
       .then((data) => {
         setArts(data);
@@ -20,7 +20,7 @@ const ExploreArt = () => {
       })
       .catch((err) => {
         console.error("Error fetching arts:", err);
-        setLoading(false); 
+        setLoading(false);
       });
   }, []);
 

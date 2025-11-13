@@ -2,18 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Fade, Zoom } from "react-awesome-reveal";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import Loader from "../Loader/Loader";
 
 const ExploreArt = () => {
   const [arts, setArts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState("All"); 
+  const [loading, setLoading] = useState(true);
+  const [category, setCategory] = useState("All");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/arts/all")
       .then((res) => res.json())
-      .then((data) => setArts(data))
-      .catch((err) => console.error("Error fetching arts:", err));
+      .then((data) => {
+        setArts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching arts:", err);
+        setLoading(false); 
+      });
   }, []);
 
   const handleSearch = (e) => setSearchTerm(e.target.value.toLowerCase());
@@ -24,6 +32,10 @@ const ExploreArt = () => {
       (art.title.toLowerCase().includes(searchTerm) ||
         art.artist.toLowerCase().includes(searchTerm))
   );
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto py-10 px-5">
@@ -75,13 +87,21 @@ const ExploreArt = () => {
                 >
                   {art.title}
                 </h2>
-                <ReactTooltip id={`tooltip-${art._id}`} place="top" effect="solid" />
+                <ReactTooltip
+                  id={`tooltip-${art._id}`}
+                  place="top"
+                  effect="solid"
+                />
                 <p>Artist: {art.artist}</p>
                 <p>Category: {art.category}</p>
                 <p data-tip="Total Likes ❤️" data-for={`like-${art._id}`}>
                   ❤️ Likes: {art.likedBy?.length || 0}
                 </p>
-                <ReactTooltip id={`like-${art._id}`} place="bottom" effect="solid" />
+                <ReactTooltip
+                  id={`like-${art._id}`}
+                  place="bottom"
+                  effect="solid"
+                />
 
                 <div className="card-actions justify-end">
                   <button

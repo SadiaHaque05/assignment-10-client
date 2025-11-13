@@ -1,19 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import "tailwindcss";
-@plugin "daisyui"{
-   themes: dark --default;
-};
+@plugin "daisyui" {
+  themes: [
+    {
+      light: {
+        primary: "#205781",
+        secondary: "#4F959D",
+        "base-200": "#f3f3f3",
+        "base-300": "#F6F8D5",
+        accent: "#98D2C0",
+      },
+      dark: {
+        primary: "#205781",
+        secondary: "#4F959D",
+        "base-200": "#2A2E37",  
+        "base-300": "#3B3F4A", 
+        accent: "#98D2C0",
+      }
+    }
+  ]
+}
 
-@plugin "daisyui/theme" {
-  name: "dark";
-  default: true;
-  --color-primary: #205781;
-  --color-secondary: #4F959D ;
-  --color-base-200: #f3f3f3;
-  --color-base-300: #F6F8D5;
-  --color-accent: #98D2C0;
-};
-
-*{
-   font-family: "Lato", sans-serif;
+* {
+  font-family: "Lato", sans-serif;
 }

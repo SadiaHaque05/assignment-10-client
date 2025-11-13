@@ -50,7 +50,6 @@ const Banner = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: artwork.id * 0.2 }}
           >
-            {/* Left: Art Image */}
             <div className="flex justify-center items-center p-4 lg:p-6">
               <motion.img
                 src={artwork.image}
@@ -61,7 +60,6 @@ const Banner = () => {
               />
             </div>
 
-            {/* Right: Artwork Info */}
             <div className="w-full lg:w-1/2 p-6 flex flex-col justify-center text-center lg:text-left">
               <motion.h2
                 className="text-5xl font-extrabold mb-2 text-white"

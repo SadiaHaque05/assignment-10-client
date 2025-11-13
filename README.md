@@ -1,16 +1,40 @@
-# React + Vite
+# ArtVerse Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ArtVerse is a creative artwork showcase platform that allows users to explore, upload, and manage artworks. This repository contains the **client-side application**, built with React, TailwindCSS, and DaisyUI.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## React Compiler
+- [Features](#features)  
+- [Tech Stack](#tech-stack)  
+- [Installation](#installation)  
+- [Running the App](#running-the-app)  
+- [Project Structure](#project-structure)  
+- [Configuration](#configuration)  
+- [Screenshots](#screenshots)  
+- [License](#license)  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Explore artworks by categories and search by title/artist.  
+- User authentication using Firebase (login/register/logout).  
+- Add, update, and delete personal artworks.  
+- Favorite artworks and view them in a dedicated gallery.  
+- Responsive and mobile-friendly UI.  
+- Dark/light theme toggle using DaisyUI.  
+- Interactive tooltips for likes and artist info.  
+- Animated loading spinners when fetching data.  
+
+---
+
+## Tech Stack
+
+- **Frontend:** React, JSX  
+- **Styling:** TailwindCSS, DaisyUI  
+- **Icons:** React Icons  
+- **Authentication:** Firebase Auth  
+- **Animations:** Framer Motion, React Awesome Reveal  
+- **Notifications:** React Toastify  

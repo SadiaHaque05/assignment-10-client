@@ -25,7 +25,6 @@ const Home = () => {
             <ArtCard key={art._id} art={art} />
           ))}
         </div>
-        {/* explore button */}
         <div className="flex justify-center mt-6">
           <button
             onClick={() => navigate("/exploreArt")}
